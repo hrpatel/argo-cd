@@ -2900,13 +2900,14 @@ metadata:
     app.kubernetes.io/part-of: argocd
   name: argocd-server
 spec:
+  type: LoadBalancer
   ports:
   - name: http
-    port: 80
+    port: 8080
     protocol: TCP
     targetPort: 8080
   - name: https
-    port: 443
+    port: 8443
     protocol: TCP
     targetPort: 8080
   selector:
@@ -2981,7 +2982,7 @@ spec:
         - -n
         - /usr/local/bin/argocd
         - /shared/argocd-dex
-        image: quay.io/argoproj/argocd:latest
+        image: alinbalutoiu/argocd:v2.0.0
         imagePullPolicy: Always
         name: copyutil
         volumeMounts:
@@ -3083,7 +3084,7 @@ spec:
         - argocd-repo-server
         - --redis
         - argocd-redis:6379
-        image: quay.io/argoproj/argocd:latest
+        image: alinbalutoiu/argocd:v2.0.0
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
@@ -3179,7 +3180,7 @@ spec:
         - argocd-server
         - --staticassets
         - /shared/app
-        image: quay.io/argoproj/argocd:latest
+        image: alinbalutoiu/argocd:v2.0.0
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
@@ -3282,7 +3283,7 @@ spec:
         - "20"
         - --operation-processors
         - "10"
-        image: quay.io/argoproj/argocd:latest
+        image: alinbalutoiu/argocd:v2.0.0
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
